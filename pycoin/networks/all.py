@@ -185,6 +185,30 @@ BUILT_IN_NETWORKS = [
         ],
         bech32_hrp='bc'
     ),
+
+    # MONA Monacoin mainnet : Ltpv/Ltub
+    Network(
+        "MONA", "Monacoin", "mainnet",
+        b'\xb0', b'\x32', b'\37',
+        h2b('0488ade4'), h2b('0488b21e'),
+        LegacyBitcoinTx, BitcoinBlock,
+        h2b('fbc0b6db'), 9401, [
+            "dnsseed.monacoin.org",
+        ],
+        bech32_hrp='mona'
+    ),
+
+    # MONA Monacoin testnet : ttpv/ttub
+    Network(
+        "TMONA", "Monacoin", "testnet4",
+        b'\xef', b'\x6f', b'\75',
+        h2b('04358394'), h2b('043587cf'),
+        LegacyBitcoinTx, BitcoinBlock,
+        h2b('fdd2c8f1'), 19403, [
+            "testnet-dnsseed.monacoin.org",
+        ],
+        bech32_hrp='tmona'
+    ),
  
 ]
 
