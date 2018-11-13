@@ -69,10 +69,6 @@ NETWORKS = (
     # ARG argentum mainnet : xprv/xpub
     NetworkValues("Argentum", "mainnet", "ARG", b'\x97', b'\x17', b'\5', h2b("0488ADE4"), h2b("0488B21E")),
 
-    # ZEC Zcash mainnet : xprv/xpub
-    NetworkValues("Zcash", "mainnet", "ZEC", b'\x80', b'\x1C\xB8',
-                  b'\x1C\xBD', h2b("0488ADE4"), h2b("0488B21E")),
-
     # BTCD BitcoinDark mainnet : xprv/xpub
     NetworkValues("BitcoinDark", "mainnet", "BTCD", b'\x44', b'\x3C', b'\55', h2b('0488ADE4'), h2b('0488B21E')),
 

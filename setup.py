@@ -21,6 +21,7 @@ setup(
         "pycoin.coins.ubtc",
         "pycoin.coins.bcx",
         "pycoin.coins.bcd",
+        "pycoin.coins.zcash",
         "pycoin.contrib",
         "pycoin.convention",
         "pycoin.ecdsa",

@@ -15,6 +15,7 @@ from pycoin.coins.ubtc.Tx import Tx as UBTCTx
 from pycoin.coins.bcx.Tx import Tx as BCXTx
 from pycoin.coins.bcd.Tx import Tx as BCDTx
 from pycoin.coins.lbtc.Tx import Tx as LBTCTx
+from pycoin.coins.zcash.Tx import Tx as ZCashTx
 
 from ..serialize import h2b
 
@@ -209,7 +210,25 @@ BUILT_IN_NETWORKS = [
         ],
         bech32_hrp='tmona'
     ),
- 
+
+    # ZEC zcash mainnet: xprv/xpub
+    Network(
+        'ZEC', "Zcash", "mainnet",
+        b'\x80', b'\x1C\xB8', b'\x1C\xBD', h2b("0488ADE4"), h2b("0488B21E"),
+        ZCashTx, BitcoinBlock,
+        h2b('24E92764'), 8333, [
+        ]
+    ), 
+
+    # ZEC zcash regtest: xprv/xpub
+    Network(
+        'ZXRT', "Zcash", "regtest",
+        b'\xEF', b'\x1D\x25', b'\x1C\xBA', h2b("04358394"), h2b("043587cf"),
+        ZCashTx, BitcoinBlock,
+        h2b('AAE83F5F'),18444, [
+        ]
+    ),
+
 ]
 
 
