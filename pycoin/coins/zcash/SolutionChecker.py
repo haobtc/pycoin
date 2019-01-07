@@ -1,7 +1,8 @@
 import io
+import binascii
 
 from ..bitcoin.SolutionChecker import BitcoinSolutionChecker
-from hashlib import blake2b
+from pyblake2 import blake2b
 from ...encoding import from_bytes_32
 from ...serialize.bitcoin_streamer import (stream_struct, stream_bc_string)
 
@@ -16,7 +17,7 @@ ZCASH_OUTPUTS_HASH_PERSONALIZATION = b'ZcashOutputsHash'
 ZCASH_JOINSPLITS_HASH_PERSONALIZATION = b'ZcashJSplitsHash'
 ZCASH_SHIELDED_SPENDS_HASH_PERSONALIZATION = b'ZcashSSpendsHash'
 ZCASH_SHIELDED_OUTPUTS_HASH_PERSONALIZATION = b'ZcashSOutputHash'
-ZCASH_SIG_HASH_PERSONALIZATION = bytes.fromhex(
+ZCASH_SIG_HASH_PERSONALIZATION = binascii.unhexlify(
     '5a6361736853696748617368bb09b876')
 
 
