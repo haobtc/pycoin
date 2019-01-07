@@ -50,6 +50,9 @@ setup(
                 'bu = pycoin.cmds.bitcoin_utils:main',
             ]
         },
+    install_requires=[
+        'pyblake2==1.1.2',
+    ],
     author_email="him@richardkiss.com",
     url="https://github.com/richardkiss/pycoin",
     license="http://opensource.org/licenses/MIT",
