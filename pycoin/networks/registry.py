@@ -30,9 +30,14 @@ def register_network(network_info):
     for prop in "wif address pay_to_script prv32 pub32".split():
         v = getattr(network_info, prop, None)
         if v is not None:
-            if v not in _NETWORK_PREFIXES:
-                _NETWORK_PREFIXES[v] = []
-            _NETWORK_PREFIXES[v].append((code, prop))
+            if isinstance(v, (list, tuple)):
+                arr = v
+            else:
+                arr = [v]
+            for v in arr:
+                if v not in _NETWORK_PREFIXES:
+                    _NETWORK_PREFIXES[v] = []
+                _NETWORK_PREFIXES[v].append((code, prop))
     v = getattr(network_info, "bech32_hrp", None)
     if v is not None:
         if v not in _BECH32_PREFIXES:
@@ -85,11 +90,15 @@ def cash_prefixes():
     return _CASH_PREFIXES
 
 
-def _lookup(netcode, property):
+def _lookup(netcode, property, index=0):
     # Lookup a specific value needed for a specific network
     network = _NETWORK_NAME_LOOKUP.get(netcode)
     if network:
-        return getattr(network, property)
+        v = getattr(network, property)
+        if isinstance(v, (list, tuple)):
+            return v[index]
+        else:
+            return v
     return None
 
 
@@ -131,9 +140,9 @@ def cash_hrp_for_netcode(netcode):
     "Return the cash hrp prefix for addresses for the given netcode (or None)"
     return _lookup(netcode, "cash_hrp")
 
-def pay_to_script_prefix_for_netcode(netcode):
+def pay_to_script_prefix_for_netcode(netcode, index=0):
     "Return the 1 byte prefix for pay-to-script addresses for the given netcode (or None)"
-    return _lookup(netcode, "pay_to_script")
+    return _lookup(netcode, "pay_to_script", index=index)
 
 
 def prv32_prefix_for_netcode(netcode):
