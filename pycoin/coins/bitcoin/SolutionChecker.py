@@ -63,11 +63,13 @@ class BitcoinSolutionChecker(SolutionChecker):
         """
         if flags is None:
             flags = VERIFY_P2SH | VERIFY_WITNESS
-        stack, solution_stack = self._check_solution(tx_context, flags, traceback_f)
 
         had_witness = False
         if flags & VERIFY_WITNESS:
             had_witness = self.check_witness(tx_context, flags, traceback_f)
+
+        stack, solution_stack = self._check_solution(tx_context, flags, traceback_f, had_witness=had_witness)
+
 
         if self.is_pay_to_script_hash(tx_context.puzzle_script) and (flags & VERIFY_P2SH):
             self._check_p2sh(tx_context, solution_stack[:-1], solution_stack[-1], flags=flags, traceback_f=traceback_f)
@@ -79,7 +81,7 @@ class BitcoinSolutionChecker(SolutionChecker):
         if (flags & VERIFY_WITNESS) and not had_witness and len(tx_context.witness_solution_stack) > 0:
             raise ScriptError("witness unexpected", errno.WITNESS_UNEXPECTED)
 
-    def _check_solution(self, tx_context, flags, traceback_f):
+    def _check_solution(self, tx_context, flags, traceback_f, had_witness=False):
         solution_script = tx_context.solution_script
         puzzle_script = tx_context.puzzle_script
 
@@ -93,7 +95,7 @@ class BitcoinSolutionChecker(SolutionChecker):
             script = vmc.script[vmc.begin_code_hash:]
             for sig_blob in sig_blobs:
                 script = self.delete_signature(script, sig_blob)
-            return self.signature_hash(script, tx_context.tx_in_idx, hash_type)
+            return self.signature_hash(script, tx_context.tx_in_idx, hash_type, had_witness=had_witness)
 
         vm_context = VMContext(solution_script, tx_context, sig_for_hash_type_f, f1)
 
@@ -230,14 +232,13 @@ class BitcoinSolutionChecker(SolutionChecker):
                 new_script.extend(section)
         return bytes(new_script)
 
-    def signature_hash(self, tx_out_script, unsigned_txs_out_idx, hash_type):
-        print('sig script', BitcoinScriptTools.disassemble(tx_out_script))
-        if self.tx.ALLOW_SEGWIT:
-            print("allow segwit")
+    def signature_hash(self, tx_out_script, unsigned_txs_out_idx, hash_type, had_witness=None):
+        if had_witness is None:
+            had_witness = self.tx.ALLOW_SEGWIT
+        if had_witness:
             return self.signature_for_hash_type_segwit(
                 tx_out_script, unsigned_txs_out_idx, hash_type)
         else:
-            print('not allow segwit')
             return self.signature_for_hash_type_plainold(
                 tx_out_script, unsigned_txs_out_idx, hash_type)
 
