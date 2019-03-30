@@ -232,7 +232,7 @@ class BitcoinSolutionChecker(SolutionChecker):
                 new_script.extend(section)
         return bytes(new_script)
 
-    def signature_hash(self, tx_out_script, unsigned_txs_out_idx, hash_type, had_witness=None):
+    def signature_hash(self, tx_out_script, unsigned_txs_out_idx, hash_type, had_witness=None, **kw):
         if had_witness is None:
             had_witness = self.tx.ALLOW_SEGWIT
         if had_witness:

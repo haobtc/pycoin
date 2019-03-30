@@ -102,7 +102,7 @@ class ZCashSolutionChecker(BitcoinSolutionChecker):
                 digest_size=32,
                 person=ZCASH_SIG_HASH_PERSONALIZATION).digest())
 
-    def signature_hash(self, tx_out_script, unsigned_txs_out_idx, hash_type):
+    def signature_hash(self, tx_out_script, unsigned_txs_out_idx, hash_type, **kw):
         """
         Return the canonical hash for a transaction. We need to
         remove references to the signature, since it's a signature

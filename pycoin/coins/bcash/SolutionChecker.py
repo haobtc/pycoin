@@ -6,7 +6,7 @@ from ..bitcoin.SolutionChecker import BitcoinSolutionChecker
 
 class BCashSolutionChecker(BitcoinSolutionChecker):
     sighash_forkid = SIGHASH_FORKID
-    def signature_hash(self, tx_out_script, unsigned_txs_out_idx, hash_type):
+    def signature_hash(self, tx_out_script, unsigned_txs_out_idx, hash_type, **kw):
         """
         Return the canonical hash for a transaction. We need to
         remove references to the signature, since it's a signature
