@@ -60,7 +60,7 @@ BUILT_IN_NETWORKS = [
         b'\xb0', b'\x30', [b'\5', b'\x32'],
         h2b('019d9cfe'), h2b('019da462'),
         tx=BitcoinTx, block=BitcoinBlock,
-        bech32_hrp='lc'
+        bech32_hrp='ltc'
     ),
 
     # LTC litecoin testnet : ttpv/ttub
