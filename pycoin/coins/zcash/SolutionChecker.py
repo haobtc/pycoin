@@ -18,7 +18,10 @@ ZCASH_JOINSPLITS_HASH_PERSONALIZATION = b'ZcashJSplitsHash'
 ZCASH_SHIELDED_SPENDS_HASH_PERSONALIZATION = b'ZcashSSpendsHash'
 ZCASH_SHIELDED_OUTPUTS_HASH_PERSONALIZATION = b'ZcashSOutputHash'
 ZCASH_SIG_HASH_PERSONALIZATION = binascii.unhexlify(
-    '5a63617368536967486173680b23b9f5')
+     '5a6361736853696748617368a675ffe9') # "Canopy"
+#    '5a63617368536967486173680b23b9f5') # "Heartwood"
+
+
 
 class ZCashSolutionChecker(BitcoinSolutionChecker):
     def hash_prevouts(self, hash_type):
